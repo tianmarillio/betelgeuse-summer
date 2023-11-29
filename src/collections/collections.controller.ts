@@ -15,6 +15,7 @@ import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { User } from 'src/auth/auth.decorator';
 import { RequestUser } from 'src/auth/auth.interface';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { QueryFindAllCollections } from './dto/query-find-all-collections.dto';
 
 @Controller('collections')
 @UseGuards(AuthGuard)
@@ -32,11 +33,11 @@ export class CollectionsController {
   @Get()
   async findAll(
     @User() user: RequestUser,
-    @Query('workspaceId') workspaceId: string,
+    @Query() query: QueryFindAllCollections
   ) {
     return await this.collectionsService.findAllByWorkspace(
       user.id,
-      workspaceId,
+      query.workspaceId,
     );
   }
 

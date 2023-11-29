@@ -15,6 +15,7 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { User } from 'src/auth/auth.decorator';
 import { RequestUser } from 'src/auth/auth.interface';
+import { QueryFindAllArticles } from './dto/query-find-all-articles.dto';
 
 @Controller('articles')
 @UseGuards(AuthGuard)
@@ -26,15 +27,16 @@ export class ArticlesController {
     @User() user: RequestUser,
     @Body() createArticleDto: CreateArticleDto,
   ) {
+    console.log(createArticleDto)
     return await this.articleService.create(user.id, createArticleDto);
   }
 
   @Get()
   async findAll(
     @User() user: RequestUser,
-    @Query('collectionId') collectionId: string,
+    @Query() query: QueryFindAllArticles
   ) {
-    return await this.articleService.findAllByCollection(user.id, collectionId);
+    return await this.articleService.findAllByCollection(user.id, query.collectionId);
   }
 
   @Get(':id')

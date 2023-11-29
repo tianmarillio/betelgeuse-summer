@@ -1,6 +1,12 @@
 import * as bcrypt from 'bcrypt';
+// TODO: move bcrypt to helper for easier testing
 
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -16,8 +22,8 @@ export class AuthService {
   async register(registerUserDto: RegisterUserDto) {
     const user = await this.usersService.findOneByEmail(registerUserDto.email);
 
-    if (user) {
-      return 'email already exist'; // TODO: handle error
+    if (!!user) {
+      throw new BadRequestException('Email already exist');
     }
 
     const salt = await bcrypt.genSalt();
@@ -35,13 +41,13 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(loginUserDto.email);
 
     if (!user) {
-      return 'invalid credential'; // TODO: handle error
+      throw new BadRequestException('Invalid credential');
     }
 
     const isMatch = await bcrypt.compare(loginUserDto.password, user.password);
 
     if (!isMatch) {
-      return 'invalid credential'; // TODO: handle error
+      throw new BadRequestException('Invalid credential');
     }
 
     const { id, email } = user;
