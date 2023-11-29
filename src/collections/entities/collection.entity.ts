@@ -33,7 +33,7 @@ export class Collection {
   workspace: Promise<Workspace>;
 
   @OneToMany(() => Article, (article) => article.collection)
-  articles: Promise<Article[]>;
+  articles: Article[];
 
   @CreateDateColumn()
   createdAt: Date;

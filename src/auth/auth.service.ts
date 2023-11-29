@@ -14,9 +14,7 @@ export class AuthService {
   ) {}
 
   async register(registerUserDto: RegisterUserDto) {
-    const user = await this.usersService.findOneByEmailWithPassword(
-      registerUserDto.email,
-    );
+    const user = await this.usersService.findOneByEmail(registerUserDto.email);
 
     if (user) {
       return 'email already exist'; // TODO: handle error
@@ -34,9 +32,7 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const user = await this.usersService.findOneByEmailWithPassword(
-      loginUserDto.email,
-    );
+    const user = await this.usersService.findOneByEmail(loginUserDto.email);
 
     if (!user) {
       return 'invalid credential'; // TODO: handle error

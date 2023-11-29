@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Workspace } from 'src/workspaces/entities/workspace.entity';
 import {
   Column,
@@ -19,10 +20,11 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @OneToMany(() => Workspace, (workspace) => workspace.user)
-  workspaces: Promise<Workspace[]>;
+  workspaces: Workspace[];
 
   @CreateDateColumn()
   createdAt: Date;

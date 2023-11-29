@@ -16,20 +16,10 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<Omit<User, 'password'>> {
-    const user = await this.userRepository.findOneBy({ id });
-    const { password, ...rest } = user;
-
-    return rest;
+    return await this.userRepository.findOneBy({ id });
   }
 
-  async findOneByEmail(email: string): Promise<Omit<User, 'password'>> {
-    const user = await this.userRepository.findOneBy({ email });
-    const { password, ...rest } = user;
-
-    return rest;
-  }
-
-  async findOneByEmailWithPassword(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User> {
     return await this.userRepository.findOneBy({ email });
   }
 }

@@ -1,8 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { AuthGuard } from './auth.guard';
 
 @Controller()
 export class AuthController {
@@ -21,11 +20,4 @@ export class AuthController {
   // TODO:
   // @Post('forgot-password')
   // async forgotPassword() {}
-
-  // FIXME:
-  @UseGuards(AuthGuard)
-  @Post('test-guard')
-  async testGuard() {
-    return 'success';
-  }
 }

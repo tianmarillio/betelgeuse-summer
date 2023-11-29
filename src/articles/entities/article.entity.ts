@@ -33,7 +33,7 @@ export class Article {
   collectionId: string;
   @ManyToOne(() => Collection, (collection) => collection.articles)
   @JoinColumn({ name: 'collectionId' })
-  collection: Promise<Collection>;
+  collection: Collection;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -26,22 +26,26 @@ export class ArticlesService {
   ): Promise<Article[]> {
     await this.findCollection(userId, collectionId);
 
-    return await this.articleRepository.findBy({
-      collectionId,
-      collection: {
-        workspace: {
-          userId,
+    return await this.articleRepository.find({
+      where: {
+        collectionId,
+        collection: {
+          workspace: {
+            userId,
+          },
         },
       },
     });
   }
 
   async findOne(userId: string, id: string): Promise<Article> {
-    const article = await this.articleRepository.findOneBy({
-      id,
-      collection: {
-        workspace: {
-          userId,
+    const article = await this.articleRepository.findOne({
+      where: {
+        id,
+        collection: {
+          workspace: {
+            userId,
+          },
         },
       },
     });

@@ -30,10 +30,10 @@ export class Workspace {
   userId: string;
   @ManyToOne(() => User, (user) => user.workspaces)
   @JoinColumn({ name: 'userId' })
-  user: Promise<User>;
+  user: User;
 
   @OneToMany(() => Collection, (collection) => collection.workspace)
-  collections: Promise<Collection[]>;
+  collections: Collection[];
 
   @CreateDateColumn()
   createdAt: Date;

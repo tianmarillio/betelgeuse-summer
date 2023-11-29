@@ -22,11 +22,15 @@ export class WorkspacesService {
   }
 
   async findAll(userId: string) {
-    return await this.workspaceRepository.findBy({ userId });
+    return await this.workspaceRepository.find({
+      where: { userId },
+    });
   }
 
   async findOne(userId: string, id: string) {
-    return await this.workspaceRepository.findOneBy({ id, userId });
+    return await this.workspaceRepository.findOne({
+      where: { id, userId },
+    });
   }
 
   async update(

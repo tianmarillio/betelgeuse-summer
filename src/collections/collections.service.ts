@@ -25,31 +25,56 @@ export class CollectionsService {
     return await this.collectionRepository.save(newCollection);
   }
 
-  async findAll(userId: string) {
-    return await this.collectionRepository.findBy({
-      workspace: {
-        userId,
-      },
-    });
-  }
+  // FIXME:
+  // async findAll(userId: string) {
+  //   const collections = await this.collectionRepository.findBy({
+  //     workspace: {
+  //       userId,
+  //     },
+  //   });
+
+  //   return collections;
+  // }
 
   async findAllByWorkspace(userId: string, workspaceId: string) {
     // Validations
     await this.findWorkspace(userId, workspaceId);
 
-    return await this.collectionRepository.findBy({
-      workspaceId,
-      workspace: {
-        userId,
+    // const collections = await this.collectionRepository.findBy({
+    //   workspaceId,
+    //   workspace: {
+    //     userId,
+    //   },
+    // });
+
+    const collections = await this.collectionRepository.find({
+      where: {
+        workspaceId,
+        workspace: {
+          userId,
+        },
+      },
+      relations: {
+        articles: true,
       },
     });
+
+    // Load articles
+    // await Promise.all(collections.map((collection) => collection.articles));
+
+    return collections;
   }
 
   async findOne(userId: string, id: string) {
-    const collection = await this.collectionRepository.findOneBy({
-      id,
-      workspace: {
-        userId,
+    const collection = await this.collectionRepository.findOne({
+      where: {
+        id,
+        workspace: {
+          userId,
+        },
+      },
+      relations: {
+        articles: true,
       },
     });
 
