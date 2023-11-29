@@ -15,7 +15,7 @@ export class UsersService {
     await this.userRepository.save(newUser);
   }
 
-  async findOne(id: string): Promise<Omit<User, 'password'>> {
+  async findOne(id: string): Promise<User>  {
     return await this.userRepository.findOneBy({ id });
   }
 

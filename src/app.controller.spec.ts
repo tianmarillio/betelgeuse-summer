@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      // expect(appController.getRoot()).toBe('Hello World!');
+    it('should return object with property status: "ok"', () => {
+      expect(appController.getRoot()).toEqual({
+        status: "ok"
+      });
     });
   });
 });
