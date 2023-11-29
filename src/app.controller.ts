@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  getRoot() {
     // FIXME:
-    return this.appService.getHello();
+    return this.appService.getRoot();
   }
 }
